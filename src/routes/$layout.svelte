@@ -1,3 +1,15 @@
+<script context="module">
+  export async function load({ fetch }) {
+    const posts = await fetch("/posts.json").then((r) => r.json());
+
+    return {
+      props: {
+        posts,
+      },
+    };
+  }
+</script>
+
 <script>
   import Nav from "$lib/Nav.svelte";
   import "../global.css";
