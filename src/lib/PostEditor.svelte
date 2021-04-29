@@ -1,4 +1,9 @@
 <script>
+  import ContentEditor from "./ContentEditor.svelte";
+
+  function handleContentUpdate(e) {
+    console.log(e);
+  }
 </script>
 
 <form>
@@ -21,7 +26,10 @@
     </label>
   </div>
   <div class="field">
-    <textarea>Markdown goes here</textarea>
+    <ContentEditor
+      content="Markdown goes here"
+      on:contentupdate={handleContentUpdate}
+    />
   </div>
 
   <div class="actions">
