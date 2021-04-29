@@ -45,4 +45,14 @@
 <div class="content-editor" bind:this={hostElement} />
 
 <style>
+  .content-editor :global .cm-content,
+  .content-editor :global .cm-gutter {
+    min-height: 20em;
+  }
+  .content-editor :global .cm-scroller {
+    overflow: auto;
+  }
+  .content-editor :global .cm-wrap {
+    border: 1px solid var(--neutral200);
+  }
 </style>
