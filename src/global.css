@@ -1,10 +1,25 @@
 :root {
   --primary900: #006f00;
   --primary500: #1fc231;
+  --primary300: #75d676;
+  --primary200: #a0e19f;
   --primary100: #c6edc5;
   --primary50: #e7f8e7;
   --neutral900: #344336;
+  --neutral800: #58725c;
   --neutral700: #768f7a;
+  --neutral500: #a7b7a9;
+  --neutral300: #ccd5cd;
+  --neutral200: #dce2dd;
+  --neutral100: #ebeeeb;
+
+  --text05: 3.052rem;
+  --text04: 2.441rem;
+  --text03: 1.953rem;
+  --text02: 1.563rem;
+  --text01: 1.25rem;
+  --text-1: 0.8rem;
+  --text-2: 0.64rem;
 }
 
 html,
@@ -28,6 +43,58 @@ body {
   color: var(--neutral900);
   font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
     helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+h1,
+.h1 {
+  font-size: var(--text05);
+}
+h2,
+.h2 {
+  font-size: var(--text04);
+}
+h3,
+.h3 {
+  font-size: var(--text03);
+}
+h4,
+.h4 {
+  font-size: var(--text02);
+}
+h5,
+.h5 {
+  font-size: var(--text01);
+}
+.text_small {
+  font-size: var(--text-1);
+}
+
+button {
+  background-color: var(--primary200);
+  border: 0;
+  border-radius: 2px;
+  color: var(--neutral800);
+  cursor: pointer;
+  line-height: 1.75;
+  padding: 0 0.75em;
+}
+button:hover {
+  background-color: var(--primary100);
+}
+
+input[type="text"],
+textarea {
+  border: 1px solid var(--neutral200);
+  border-radius: 2px;
+  color: var(--neutral900);
+}
+input[type="text"]:focus,
+textarea:focus {
+  border-color: var(--primary300);
+  outline: none;
+}
+input[type="text"]::placeholder {
+  color: var(--neutral500);
 }
 
 #root {

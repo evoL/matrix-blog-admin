@@ -6,7 +6,11 @@
   <h1>matrix-blog</h1>
 
   <section>
-    <h2>Posts</h2>
+    <header>
+      <h2>Posts</h2>
+      <a href="/posts/new" class="add">Add</a>
+    </header>
+
     <ul>
       {#each posts as post}
         <li>
@@ -35,15 +39,40 @@
     padding: 0 1rem;
   }
   a {
-    color: #768f7a;
+    color: var(--neutral700);
+    text-decoration: none;
+  }
+  li a {
     font-size: 0.8rem;
     display: block;
     line-height: 1.5rem;
     padding: 0 1rem;
-    text-decoration: none;
   }
-  a:hover,
-  a:focus {
+  li a:hover,
+  li a:focus {
     background-color: var(--primary100);
+  }
+  header {
+    display: flex;
+    justify-content: space-between;
+    margin-right: 1rem;
+  }
+  .add {
+    align-self: center;
+    border-radius: 2px;
+    display: inline-block;
+    font-size: 0.6em;
+    font-weight: 500;
+    padding: 0 0.5em;
+    line-height: 1.875;
+    background: var(--primary100);
+  }
+  .add:hover,
+  .add:focus {
+    background: var(--primary200);
+  }
+
+  .add:before {
+    content: "+ ";
   }
 </style>
