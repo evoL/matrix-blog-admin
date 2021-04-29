@@ -1,0 +1,35 @@
+:root {
+  --primary900: #006f00;
+  --primary500: #1fc231;
+  --primary100: #c6edc5;
+  --primary50: #e7f8e7;
+  --neutral900: #344336;
+  --neutral700: #768f7a;
+}
+
+html,
+body,
+h1,
+h2,
+p,
+ul,
+li {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  color: var(--neutral900);
+  font-family: -apple-system, BlinkMacSystemFont, avenir next, avenir, segoe ui,
+    helvetica neue, helvetica, Ubuntu, roboto, noto, arial, sans-serif;
+}
+
+#root {
+  display: flex;
+}

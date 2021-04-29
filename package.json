@@ -1,5 +1,5 @@
 {
-  "name": "~TODO~",
+  "name": "matrix_blog_admin",
   "version": "0.0.1",
   "scripts": {
     "dev": "svelte-kit dev",
