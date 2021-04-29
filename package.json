@@ -9,6 +9,7 @@
     "format": "prettier --write ."
   },
   "devDependencies": {
+    "@sveltejs/adapter-node": "^1.0.0-next.17",
     "@sveltejs/kit": "next",
     "@typescript-eslint/eslint-plugin": "^4.19.0",
     "@typescript-eslint/parser": "^4.19.0",
@@ -23,5 +24,8 @@
     "typescript": "^4.0.0",
     "vite": "^2.2.3"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "matrix-blog": "file:../library"
+  }
 }

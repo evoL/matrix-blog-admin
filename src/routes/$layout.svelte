@@ -1,5 +1,5 @@
 <script>
-  import Nav from "../components/Nav.svelte";
+  import Nav from "$lib/Nav.svelte";
   import "../global.css";
 
   export let posts = [
