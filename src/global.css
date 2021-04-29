@@ -35,7 +35,7 @@ li {
 
 html,
 body,
-#root {
+#svelte {
   height: 100%;
 }
 
@@ -97,6 +97,6 @@ input[type="text"]::placeholder {
   color: var(--neutral500);
 }
 
-#root {
+#svelte {
   display: flex;
 }
