@@ -1,5 +1,5 @@
 <script>
-  import { createEventDispatcher, onMount } from "svelte";
+  import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import { EditorView, EditorState, basicSetup } from "@codemirror/basic-setup";
   import { markdown } from "@codemirror/lang-markdown";
 
@@ -39,6 +39,12 @@
       state,
       parent: hostElement,
     });
+  });
+  onDestroy(() => {
+    if (timeout != null) {
+      clearTimeout(timeout);
+      updateDoc();
+    }
   });
 </script>
 
