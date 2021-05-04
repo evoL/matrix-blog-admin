@@ -1,6 +1,8 @@
 <script>
   import { createEventDispatcher, onDestroy, onMount } from "svelte";
   import { EditorView, EditorState, basicSetup } from "@codemirror/basic-setup";
+  import { keymap } from "@codemirror/view";
+  import { defaultTabBinding } from "@codemirror/commands";
   import { markdown } from "@codemirror/lang-markdown";
 
   export let content = "";
@@ -28,6 +30,8 @@
       extensions: [
         basicSetup,
         markdown(),
+        keymap.of([defaultTabBinding]),
+        EditorView.lineWrapping,
         EditorView.updateListener.of((value) => {
           if (value.docChanged) {
             scheduleUpdate();
