@@ -45,14 +45,25 @@
 <div class="content-editor" bind:this={hostElement} />
 
 <style>
+  .content-editor,
+  .content-editor :global .cm-editor,
   .content-editor :global .cm-content,
   .content-editor :global .cm-gutter {
-    min-height: 20em;
+    height: 100%;
   }
   .content-editor :global .cm-scroller {
     overflow: auto;
   }
+  .content-editor :global .cm-gutters {
+    background-color: var(--neutral50);
+    color: var(--neutral500);
+    border-right: 1px solid var(--neutral200);
+  }
   .content-editor :global .cm-wrap {
     border: 1px solid var(--neutral200);
+  }
+  .content-editor :global .cm-focused {
+    outline: none;
+    border-color: var(--primary300);
   }
 </style>

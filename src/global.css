@@ -12,6 +12,7 @@
   --neutral300: #ccd5cd;
   --neutral200: #dce2dd;
   --neutral100: #ebeeeb;
+  --neutral50: #f8faf9;
 
   --text05: 3.052rem;
   --text04: 2.441rem;
@@ -70,8 +71,8 @@ h5,
 }
 
 button {
-  background-color: var(--primary200);
-  border: 0;
+  background-color: transparent;
+  border: 1px solid var(--primary200);
   border-radius: 2px;
   color: var(--neutral800);
   cursor: pointer;
@@ -79,7 +80,7 @@ button {
   padding: 0 0.75em;
 }
 button:hover {
-  background-color: var(--primary100);
+  background-color: var(--primary50);
 }
 
 input[type="text"],
@@ -99,4 +100,11 @@ input[type="text"]::placeholder {
 
 #svelte {
   display: flex;
+}
+
+.tab {
+  border-bottom: 0;
+}
+.tab.active {
+  background-color: var(--primary100);
 }

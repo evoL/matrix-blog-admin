@@ -1,8 +1,18 @@
 <script>
+  import { BlogService } from "matrix-blog";
+
   import ContentEditor from "./ContentEditor.svelte";
 
+  export let post = {
+    title: undefined,
+    summary: undefined,
+    slug: undefined,
+    content: undefined,
+  };
+  let currentTab = "markdown";
+
   function handleContentUpdate(e) {
-    console.log(e);
+    post.content = e.detail;
   }
 </script>
 
@@ -10,26 +20,59 @@
   <div class="field title">
     <label>
       <span>Title</span>
-      <input type="text" required placeholder="Title goes here" />
+      <input
+        type="text"
+        required
+        placeholder="Title goes here"
+        bind:value={post.title}
+      />
     </label>
   </div>
   <div class="field summary">
     <label>
       <span>Summary</span>
-      <input type="text" placeholder="What it's going to be about" />
+      <input
+        type="text"
+        placeholder="What it's going to be about"
+        bind:value={post.summary}
+      />
     </label>
   </div>
   <div class="field slug">
     <label>
       <span>Slug</span>
-      <input type="text" placeholder="title-goes-here" />
+      <input type="text" placeholder="title-goes-here" bind:value={post.slug} />
     </label>
   </div>
   <div class="field">
-    <ContentEditor
-      content="Markdown goes here"
-      on:contentupdate={handleContentUpdate}
-    />
+    <div class="tabs">
+      <button
+        class="tab"
+        class:active={currentTab === "markdown"}
+        type="button"
+        on:click={(e) => (currentTab = "markdown")}
+      >
+        Markdown
+      </button>
+      <button
+        class="tab"
+        class:active={currentTab === "preview"}
+        type="button"
+        on:click={(e) => (currentTab = "preview")}
+      >
+        Preview
+      </button>
+    </div>
+    <div class="content">
+      {#if currentTab === "markdown"}
+        <ContentEditor
+          content={post.content}
+          on:contentupdate={handleContentUpdate}
+        />
+      {:else if currentTab === "preview"}
+        <div>preview goes here</div>
+      {/if}
+    </div>
   </div>
 
   <div class="actions">
@@ -63,5 +106,9 @@
   }
   .slug input[type="text"] {
     font-family: monospace;
+  }
+
+  .content {
+    height: 24em;
   }
 </style>
