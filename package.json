@@ -28,6 +28,7 @@
   "dependencies": {
     "@codemirror/basic-setup": "^0.18.0",
     "@codemirror/lang-markdown": "^0.18.1",
+    "markdown-it": "^12.0.6",
     "matrix-blog": "file:../library"
   }
 }

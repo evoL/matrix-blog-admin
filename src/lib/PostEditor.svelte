@@ -2,6 +2,7 @@
   import { BlogService } from "matrix-blog";
 
   import ContentEditor from "./ContentEditor.svelte";
+  import ContentPreview from "./ContentPreview.svelte";
 
   export let post = {
     title: undefined,
@@ -70,7 +71,7 @@
           on:contentupdate={handleContentUpdate}
         />
       {:else if currentTab === "preview"}
-        <div>preview goes here</div>
+        <ContentPreview content={post.content} />
       {/if}
     </div>
   </div>
@@ -110,5 +111,8 @@
 
   .content {
     height: 24em;
+  }
+  .content :global .content-preview {
+    border: 1px solid var(--neutral200);
   }
 </style>
