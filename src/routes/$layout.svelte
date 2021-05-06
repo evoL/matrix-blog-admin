@@ -12,17 +12,17 @@
 
 <script>
   import Nav from "$lib/Nav.svelte";
+  import { postStore } from "$lib/stores";
   import "../global.css";
 
-  export let posts = [
-    {
-      id: "foo",
-      title: "Example post title",
-    },
-  ];
+  export let posts = [];
+
+  if (posts.length) {
+    postStore.set(posts);
+  }
 </script>
 
-<Nav {posts} />
+<Nav posts={$postStore} />
 
 <main>
   <div class="viewport">

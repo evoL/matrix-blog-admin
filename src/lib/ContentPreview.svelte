@@ -1,11 +1,8 @@
 <script>
-  import MarkdownIt from "markdown-it";
+  import { convertToHtml } from "./markdown";
 
-  export let content;
-  let preview;
-
-  const md = new MarkdownIt();
-  preview = md.render(content);
+  export let content = "";
+  let preview = convertToHtml(content);
 </script>
 
 <div class="content-preview">

@@ -1,6 +1,6 @@
 <script>
-  import { BlogService } from "matrix-blog";
-
+  import { createEventDispatcher } from "svelte";
+  import slug from "slug";
   import ContentEditor from "./ContentEditor.svelte";
   import ContentPreview from "./ContentPreview.svelte";
 
@@ -11,13 +11,29 @@
     content: undefined,
   };
   let currentTab = "markdown";
+  const dispatch = createEventDispatcher();
+
+  function generateSlug(title) {
+    if (!title) return "title-goes-here";
+    return slug(title);
+  }
 
   function handleContentUpdate(e) {
     post.content = e.detail;
   }
+  function handleSubmit() {
+    dispatch(
+      "save",
+      Object.assign(
+        {},
+        post,
+        post.slug ? undefined : { slug: generateSlug(post.title) }
+      )
+    );
+  }
 </script>
 
-<form>
+<form on:submit|preventDefault={handleSubmit}>
   <div class="field title">
     <label>
       <span>Title</span>
@@ -42,7 +58,11 @@
   <div class="field slug">
     <label>
       <span>Slug</span>
-      <input type="text" placeholder="title-goes-here" bind:value={post.slug} />
+      <input
+        type="text"
+        placeholder={generateSlug(post.title)}
+        bind:value={post.slug}
+      />
     </label>
   </div>
   <div class="field">
