@@ -1,5 +1,6 @@
 <script>
   export let posts;
+  export let currentPath;
 </script>
 
 <nav>
@@ -14,8 +15,11 @@
     <ul>
       {#each posts as post}
         <li>
-          <a href="/posts/{post.id}">
-            {post.title || "(untitled post)"}
+          <a
+            href="/posts/{post.id}"
+            class:active={currentPath === `/posts/${post.id}`}
+          >
+            {post.title}
           </a>
         </li>
       {/each}
@@ -48,6 +52,7 @@
     line-height: 1.5rem;
     padding: 0 1rem;
   }
+  li a.active,
   li a:hover,
   li a:focus {
     background-color: var(--primary100);

@@ -13,6 +13,7 @@
 <script>
   import Nav from "$lib/Nav.svelte";
   import { postStore } from "$lib/stores";
+  import { page } from "$app/stores";
   import "../global.css";
 
   export let posts = [];
@@ -22,7 +23,7 @@
   }
 </script>
 
-<Nav posts={$postStore} />
+<Nav posts={$postStore} currentPath={$page.path} />
 
 <main>
   <div class="viewport">
