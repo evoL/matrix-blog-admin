@@ -1,9 +1,42 @@
+<script context="module">
+  export async function load({ page, fetch }) {
+    const { postId } = page.params;
+    const post = await fetch(`/posts/${postId}.json`).then((p) => p.json());
+
+    return {
+      props: { post },
+    };
+  }
+</script>
+
 <script>
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
+  import PostEditor from "$lib/PostEditor.svelte";
   import { postStore } from "$lib/stores";
 
+  export let post;
   let postId = $page.params.postId;
+
+  async function handleSave(e) {
+    const newPost = e.detail;
+
+    const response = await fetch(`/posts/${postId}.json`, {
+      method: "put",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(newPost),
+    });
+    if (response.ok) {
+      const json = await response.json();
+      postStore.update((posts) =>
+        posts.map((p) => (p.id === postId ? json : p))
+      );
+      post = json;
+    } else {
+      const text = await response.text();
+      alert(`Error ${response.status}: ${text}`);
+    }
+  }
 
   async function handleDelete() {
     if (!confirm("Do you really want to delete this post?")) return;
@@ -25,6 +58,9 @@
   }
 </script>
 
-<p>It's a blog post!</p>
-
-<button type="button" on:click={handleDelete}>Delete</button>
+<PostEditor
+  {post}
+  allowDelete={true}
+  on:save={handleSave}
+  on:delete={handleDelete}
+/>

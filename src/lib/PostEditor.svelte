@@ -10,6 +10,8 @@
     slug: undefined,
     content: undefined,
   };
+  export let allowDelete = false;
+
   let currentTab = "markdown";
   const dispatch = createEventDispatcher();
 
@@ -30,6 +32,9 @@
         post.slug ? undefined : { slug: generateSlug(post.title) }
       )
     );
+  }
+  function handleDelete() {
+    dispatch("delete");
   }
 </script>
 
@@ -97,7 +102,12 @@
   </div>
 
   <div class="actions">
-    <button type="submit">Create</button>
+    <button type="submit">Save</button>
+    {#if allowDelete}
+      <button type="button" class="delete" on:click={handleDelete}
+        >Delete</button
+      >
+    {/if}
   </div>
 </form>
 
@@ -110,7 +120,17 @@
     font-size: var(--text-2);
   }
   .actions {
+    display: flex;
+    justify-content: space-between;
     margin-top: 1em;
+  }
+  .delete {
+    background-color: var(--error100);
+    border-color: var(--error200);
+    color: var(--error800);
+  }
+  .delete:hover {
+    background-color: var(--error200);
   }
 
   input[type="text"] {

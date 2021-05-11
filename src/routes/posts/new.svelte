@@ -10,9 +10,13 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(post),
     });
-    const json = await response.json();
-
-    postStore.update((posts) => [json.post, ...posts]);
+    if (response.ok) {
+      const json = await response.json();
+      postStore.update((posts) => [json.post, ...posts]);
+    } else {
+      const text = await response.text();
+      alert(`Error ${response.status}: ${text}`);
+    }
   }
 </script>
 
