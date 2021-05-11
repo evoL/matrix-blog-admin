@@ -1,5 +1,10 @@
 <script>
-  import { createEventDispatcher, onDestroy, onMount } from "svelte";
+  import {
+    afterUpdate,
+    createEventDispatcher,
+    onDestroy,
+    onMount,
+  } from "svelte";
   import { EditorView, EditorState, basicSetup } from "@codemirror/basic-setup";
   import { keymap } from "@codemirror/view";
   import { defaultTabBinding } from "@codemirror/commands";
@@ -42,6 +47,15 @@
     view = new EditorView({
       state,
       parent: hostElement,
+    });
+  });
+  afterUpdate(() => {
+    view.dispatch({
+      changes: {
+        from: 0,
+        to: view.state.doc.length,
+        insert: content,
+      },
     });
   });
   onDestroy(() => {
