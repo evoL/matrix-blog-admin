@@ -3,6 +3,7 @@ import { getMatrixClient } from "$lib/matrix";
 import { BlogService } from "matrix-blog";
 import { handleError } from "$lib/requests";
 import { convertToHtml } from "$lib/markdown";
+import { DateTime } from "luxon";
 
 export const get: RequestHandler = async function ({ params }) {
   const { postId } = params;
@@ -18,6 +19,12 @@ export const get: RequestHandler = async function ({ params }) {
         summary: post.summary,
         slug: post.slug,
         content: post.text,
+        created_at: DateTime.fromMillis(post.created_ms, {
+          zone: "UTC",
+        }).toISO(),
+        edited_at:
+          post.edited_ms &&
+          DateTime.fromMillis(post.edited_ms, { zone: "UTC" }).toISO(),
       },
     };
   } catch (e) {
