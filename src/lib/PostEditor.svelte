@@ -21,6 +21,7 @@
   }
 
   function handleContentUpdate(e) {
+    if (post.content === e.detail) return;
     post.content = e.detail;
   }
   function handleSubmit() {
