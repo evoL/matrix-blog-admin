@@ -2,11 +2,10 @@
   import { convertToHtml } from "./markdown";
 
   export let content = "";
-  let preview = convertToHtml(content);
 </script>
 
 <div class="content-preview">
-  <article>{@html preview}</article>
+  <article>{@html convertToHtml(content)}</article>
 </div>
 
 <style>
