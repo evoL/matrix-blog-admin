@@ -12,8 +12,10 @@
   };
   export let allowDelete = false;
 
-  let currentTab = "markdown";
   const dispatch = createEventDispatcher();
+  let currentTab = "markdown";
+
+  let published;
 
   function generateSlug(title) {
     if (!title) return "title-goes-here";
@@ -24,13 +26,21 @@
     if (post.content === e.detail) return;
     post.content = e.detail;
   }
+
+  function handlePublishChange(e) {
+    published = e.target.checked;
+    post.slug = published ? post.slug : "";
+  }
+
   function handleSubmit() {
     dispatch(
       "save",
       Object.assign(
         {},
         post,
-        post.slug ? undefined : { slug: generateSlug(post.title) }
+        published && post.slug
+          ? undefined
+          : { slug: published ? generateSlug(post.title) : "" }
       )
     );
   }
@@ -64,9 +74,11 @@
   <div class="field slug">
     <label>
       <span>Slug</span>
+      <input type="checkbox" on:change={handlePublishChange} />
       <input
         type="text"
         placeholder={generateSlug(post.title)}
+        disabled={!published}
         bind:value={post.slug}
       />
     </label>
@@ -116,9 +128,26 @@
   .field + .field {
     margin-top: 0.5em;
   }
+  .field label {
+    display: grid;
+    grid-template-columns: min-content auto;
+    grid-template-rows: auto auto;
+  }
   .field span {
     display: block;
     font-size: var(--text-2);
+    grid-column: span 2;
+  }
+  .field input[type="checkbox"] {
+    grid-column: 1;
+    grid-row: 2;
+  }
+  .field input[type="text"] {
+    grid-column: span 2;
+    grid-row: 2;
+  }
+  .field input[type="checkbox"] + input[type="text"] {
+    grid-column: 2;
   }
   .actions {
     display: flex;
