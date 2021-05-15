@@ -16,7 +16,7 @@
   import { postStore } from "$lib/stores";
 
   export let post;
-  let postId = $page.params.postId;
+  $: postId = $page.params.postId;
 
   async function handleSave(e) {
     const newPost = e.detail;
