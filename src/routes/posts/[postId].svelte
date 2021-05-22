@@ -32,6 +32,7 @@
         posts.map((p) => (p.id === postId ? json : p))
       );
       post = json;
+      alert("Update succeeded!");
     } else {
       const text = await response.text();
       alert(`Error ${response.status}: ${text}`);

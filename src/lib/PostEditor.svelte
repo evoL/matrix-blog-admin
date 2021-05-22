@@ -1,8 +1,11 @@
 <script>
-  import { createEventDispatcher } from "svelte";
   import slug from "slug";
+  import { createEventDispatcher } from "svelte";
+  import { writable } from "svelte/store";
   import ContentEditor from "./ContentEditor.svelte";
   import ContentPreview from "./ContentPreview.svelte";
+
+  const dispatch = createEventDispatcher();
 
   export let post = {
     title: undefined,
@@ -12,10 +15,13 @@
   };
   export let allowDelete = false;
 
-  const dispatch = createEventDispatcher();
+  const draftPost = writable({ ...post, published: !!post.slug });
   let currentTab = "markdown";
 
-  let published;
+  // Update the form state every time the "post" prop changes.
+  $: {
+    draftPost.set({ ...post, published: !!post.slug });
+  }
 
   function generateSlug(title) {
     if (!title) return "title-goes-here";
@@ -23,27 +29,30 @@
   }
 
   function handleContentUpdate(e) {
-    if (post.content === e.detail) return;
-    post.content = e.detail;
+    const content = e.detail;
+    if ($draftPost.content === content) return;
+    draftPost.update((post) => ({ ...post, content }));
   }
 
-  function handlePublishChange(e) {
-    published = e.target.checked;
-    post.slug = published ? post.slug : "";
+  function switchTab(tab) {
+    if (tab === "markdown") {
+      // Update the "published" post so that the editor doesn't discard the changes.
+      post.content = $draftPost.content;
+    }
+    currentTab = tab;
   }
 
   function handleSubmit() {
-    dispatch(
-      "save",
-      Object.assign(
-        {},
-        post,
-        published && post.slug
-          ? undefined
-          : { slug: published ? generateSlug(post.title) : "" }
-      )
-    );
+    let newSlug = $draftPost.slug;
+    if (!$draftPost.published) {
+      newSlug = "";
+    } else if (!$draftPost.slug) {
+      newSlug = generateSlug($draftPost.title);
+    }
+
+    dispatch("save", { ...$draftPost, slug: newSlug });
   }
+
   function handleDelete() {
     dispatch("delete");
   }
@@ -57,7 +66,7 @@
         type="text"
         required
         placeholder="Title goes here"
-        bind:value={post.title}
+        bind:value={$draftPost.title}
       />
     </label>
   </div>
@@ -67,19 +76,19 @@
       <input
         type="text"
         placeholder="What it's going to be about"
-        bind:value={post.summary}
+        bind:value={$draftPost.summary}
       />
     </label>
   </div>
   <div class="field slug">
     <label>
       <span>Slug</span>
-      <input type="checkbox" on:change={handlePublishChange} />
+      <input type="checkbox" bind:checked={$draftPost.published} />
       <input
         type="text"
-        placeholder={generateSlug(post.title)}
-        disabled={!published}
-        bind:value={post.slug}
+        placeholder={generateSlug($draftPost.title)}
+        disabled={!$draftPost.published}
+        bind:value={$draftPost.slug}
       />
     </label>
   </div>
@@ -89,7 +98,7 @@
         class="tab"
         class:active={currentTab === "markdown"}
         type="button"
-        on:click={(e) => (currentTab = "markdown")}
+        on:click={() => switchTab("markdown")}
       >
         Markdown
       </button>
@@ -97,19 +106,24 @@
         class="tab"
         class:active={currentTab === "preview"}
         type="button"
-        on:click={(e) => (currentTab = "preview")}
+        on:click={() => switchTab("preview")}
       >
         Preview
       </button>
     </div>
     <div class="content">
       {#if currentTab === "markdown"}
+        <!--
+          This uses post.content because CodeMirror holds its own representation of content.
+          If we use $draftPost here, the cursor will jump back to the beginning every time
+          the post gets updated, which is terrible UX.
+        -->
         <ContentEditor
           content={post.content}
           on:contentupdate={handleContentUpdate}
         />
       {:else if currentTab === "preview"}
-        <ContentPreview content={post.content} />
+        <ContentPreview content={$draftPost.content} />
       {/if}
     </div>
   </div>

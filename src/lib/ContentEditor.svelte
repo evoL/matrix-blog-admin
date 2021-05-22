@@ -1,14 +1,14 @@
 <script>
+  import { basicSetup, EditorState, EditorView } from "@codemirror/basic-setup";
+  import { defaultTabBinding } from "@codemirror/commands";
+  import { markdown } from "@codemirror/lang-markdown";
+  import { keymap } from "@codemirror/view";
   import {
     afterUpdate,
     createEventDispatcher,
     onDestroy,
     onMount,
   } from "svelte";
-  import { EditorView, EditorState, basicSetup } from "@codemirror/basic-setup";
-  import { keymap } from "@codemirror/view";
-  import { defaultTabBinding } from "@codemirror/commands";
-  import { markdown } from "@codemirror/lang-markdown";
 
   export let content = "";
   let hostElement;
@@ -28,6 +28,11 @@
       timeout = undefined;
     }, 1000);
   }
+  function finishUpdate() {
+    if (timeout == null) return;
+    clearTimeout(timeout);
+    updateDoc();
+  }
 
   onMount(() => {
     const state = EditorState.create({
@@ -41,6 +46,11 @@
           if (value.docChanged) {
             scheduleUpdate();
           }
+        }),
+        EditorView.domEventHandlers({
+          blur: () => {
+            finishUpdate();
+          },
         }),
       ],
     });
@@ -59,10 +69,7 @@
     });
   });
   onDestroy(() => {
-    if (timeout != null) {
-      clearTimeout(timeout);
-      updateDoc();
-    }
+    finishUpdate();
   });
 </script>
 

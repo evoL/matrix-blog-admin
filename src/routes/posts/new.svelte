@@ -13,6 +13,7 @@
     if (response.ok) {
       const json = await response.json();
       postStore.update((posts) => [json.post, ...posts]);
+      alert("Update succeeded!");
     } else {
       const text = await response.text();
       alert(`Error ${response.status}: ${text}`);
