@@ -59,7 +59,7 @@
 </script>
 
 <form on:submit|preventDefault={handleSubmit}>
-  <div class="field title">
+  <div class="field field--title">
     <label>
       <span>Title</span>
       <input
@@ -70,7 +70,7 @@
       />
     </label>
   </div>
-  <div class="field summary">
+  <div class="field field--summary">
     <label>
       <span>Summary</span>
       <input
@@ -80,7 +80,7 @@
       />
     </label>
   </div>
-  <div class="field slug">
+  <div class="field field--slug">
     <label>
       <span>Slug</span>
       <input type="checkbox" bind:checked={$draftPost.published} />
@@ -92,7 +92,7 @@
       />
     </label>
   </div>
-  <div class="field">
+  <div class="field field--content">
     <div class="tabs">
       <button
         class="tab"
@@ -112,19 +112,20 @@
       </button>
     </div>
     <div class="content">
-      {#if currentTab === "markdown"}
-        <!--
-          This uses post.content because CodeMirror holds its own representation of content.
-          If we use $draftPost here, the cursor will jump back to the beginning every time
-          the post gets updated, which is terrible UX.
-        -->
+      <!--
+        This uses post.content because CodeMirror holds its own representation of content.
+        If we use $draftPost here, the cursor will jump back to the beginning every time
+        the post gets updated, which is terrible UX.
+      -->
+      <div class="content__editor" class:active={currentTab === "markdown"}>
         <ContentEditor
           content={post.content}
           on:contentupdate={handleContentUpdate}
         />
-      {:else if currentTab === "preview"}
+      </div>
+      <div class="content__preview" class:active={currentTab === "preview"}>
         <ContentPreview content={$draftPost.content} />
-      {/if}
+      </div>
     </div>
   </div>
 
@@ -139,6 +140,14 @@
 </form>
 
 <style>
+  form {
+    display: contents;
+  }
+  .field,
+  .actions {
+    grid-column: 2;
+  }
+
   .field + .field {
     margin-top: 0.5em;
   }
@@ -181,22 +190,47 @@
     width: 100%;
   }
 
-  .title input[type="text"] {
+  .field--title input[type="text"] {
     letter-spacing: -0.03em;
     font-size: var(--text04);
     font-weight: bold;
   }
-  .summary input[type="text"] {
+  .field--summary input[type="text"] {
     font-size: var(--text01);
   }
-  .slug input[type="text"] {
+  .field--slug input[type="text"] {
     font-family: monospace;
   }
 
-  .content {
+  .content__editor,
+  .content__preview {
     height: 24em;
   }
-  .content :global .content-preview {
+  .content__preview {
     border: 1px solid var(--neutral200);
+  }
+
+  @media screen and (max-width: 1279px) {
+    .content > :not(.active) {
+      display: none;
+    }
+  }
+  @media screen and (min-width: 1280px) {
+    .field--content {
+      grid-column: 1/span 3;
+    }
+    .tabs {
+      display: none;
+    }
+    .content {
+      display: flex;
+    }
+    .content__editor,
+    .content__preview {
+      flex: 1;
+    }
+    .content__editor {
+      margin-right: 1em;
+    }
   }
 </style>

@@ -36,8 +36,15 @@
     flex: 1;
   }
   .viewport {
+    display: grid;
+    grid-template-columns: 1fr minmax(min-content, 72ch) 1fr;
     margin: 0 auto;
-    max-width: 72ch;
     padding: 1rem;
+  }
+
+  @media screen and (max-width: 1279px) {
+    .viewport {
+      max-width: 72ch;
+    }
   }
 </style>

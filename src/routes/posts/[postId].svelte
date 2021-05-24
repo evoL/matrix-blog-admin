@@ -59,6 +59,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>{post.title} — matrix-blog</title>
+</svelte:head>
+
 <PostEditor
   {post}
   allowDelete={true}

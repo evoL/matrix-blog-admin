@@ -1,12 +1,22 @@
 <script>
   export let posts;
   export let currentPath;
+
+  let collapsed = false;
 </script>
 
-<nav>
+<nav class:collapsed>
   <h1>matrix-blog</h1>
 
-  <section>
+  <button
+    class="toggle"
+    title={collapsed ? "Expand" : "Collapse"}
+    on:click={() => (collapsed = !collapsed)}
+  >
+    {collapsed ? "▶" : "◀"}
+  </button>
+
+  <section class="posts">
     <header>
       <h2>Posts</h2>
       <a href="/posts/new" class="add">Add</a>
@@ -30,8 +40,36 @@
 <style>
   nav {
     background-color: var(--primary50);
+    position: relative;
+    min-width: 15em;
     width: 15em;
   }
+  nav.collapsed {
+    min-width: 2em;
+    width: 2em;
+  }
+  .collapsed h1,
+  .collapsed .posts {
+    display: none;
+  }
+  .collapsed .toggle {
+    right: 0.25rem;
+  }
+
+  .toggle {
+    border: 0;
+    padding: 0;
+    position: absolute;
+    top: 1.5rem;
+    transform: translateY(-50%);
+    right: 1rem;
+    width: 1.5rem;
+    height: 1.5rem;
+  }
+  .toggle:hover {
+    background-color: var(--primary100);
+  }
+
   h1 {
     font-size: 1.2rem;
     line-height: 3rem;

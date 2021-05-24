@@ -21,6 +21,10 @@
   }
 </script>
 
+<svelte:head>
+  <title>New post — matrix-blog</title>
+</svelte:head>
+
 <PostEditor on:save={handleSave} />
 
 <style>
