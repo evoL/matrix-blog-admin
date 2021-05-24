@@ -3,7 +3,6 @@ import { blogRoomId } from "$lib/environment";
 import { getMatrixClient } from "$lib/matrix";
 import { convertToHtml } from "$lib/markdown";
 import { BlogService } from "matrix-blog";
-import slug from "slug";
 import { handleError } from "$lib/requests";
 
 export const get: RequestHandler = async function () {
@@ -30,7 +29,7 @@ export const post: RequestHandler = async function (request) {
     const post = await blogService.addPost(blogRoomId, {
       title: input.title,
       summary: input.summary,
-      slug: input.slug || slug(input.title),
+      slug: input.slug,
       text: input.content,
       html: convertToHtml(input.content),
     });
