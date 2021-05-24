@@ -8,10 +8,10 @@
   const dispatch = createEventDispatcher();
 
   export let post = {
-    title: undefined,
-    summary: undefined,
-    slug: undefined,
-    content: undefined,
+    title: '',
+    summary: '',
+    slug: '',
+    content: '',
   };
   export let allowDelete = false;
 
