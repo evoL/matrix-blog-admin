@@ -30,6 +30,15 @@
     margin-top: 0;
   }
   article :global p {
-    margin-bottom: 1rem;
+    margin-bottom: 1em;
+  }
+  article :global ul,
+  article :global ol {
+    margin-left: 2em;
+    margin-bottom: 1em;
+  }
+  article :global pre {
+    background-color: var(--neutral50);
+    padding: 0.5rem;
   }
 </style>
