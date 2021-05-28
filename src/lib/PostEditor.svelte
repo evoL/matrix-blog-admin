@@ -35,10 +35,6 @@
   }
 
   function switchTab(tab) {
-    if (tab === "markdown") {
-      // Update the "published" post so that the editor doesn't discard the changes.
-      post.content = $draftPost.content;
-    }
     currentTab = tab;
   }
 
@@ -112,14 +108,9 @@
       </button>
     </div>
     <div class="content">
-      <!--
-        This uses post.content because CodeMirror holds its own representation of content.
-        If we use $draftPost here, the cursor will jump back to the beginning every time
-        the post gets updated, which is terrible UX.
-      -->
       <div class="content__editor" class:active={currentTab === "markdown"}>
         <ContentEditor
-          content={post.content}
+          content={$draftPost.content}
           on:contentupdate={handleContentUpdate}
         />
       </div>
