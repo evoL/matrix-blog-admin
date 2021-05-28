@@ -1,6 +1,7 @@
 <script>
   import PostEditor from "$lib/PostEditor.svelte";
   import { postStore } from "$lib/stores";
+  import { goto } from "$app/navigation";
 
   async function handleSave(e) {
     const post = e.detail;
@@ -13,6 +14,7 @@
     if (response.ok) {
       const json = await response.json();
       postStore.update((posts) => [json.post, ...posts]);
+      await goto(`/posts/${json.post.id}`, {noscroll: true});
       alert("Update succeeded!");
     } else {
       const text = await response.text();
