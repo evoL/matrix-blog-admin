@@ -8,10 +8,10 @@
   const dispatch = createEventDispatcher();
 
   export let post = {
-    title: '',
-    summary: '',
-    slug: '',
-    content: '',
+    title: "",
+    summary: "",
+    slug: "",
+    content: "",
   };
   export let allowDelete = false;
 
@@ -208,7 +208,7 @@
   }
   @media screen and (min-width: 1280px) {
     .field--content {
-      grid-column: 1/span 3;
+      grid-column: 1 / span 3;
     }
     .tabs {
       display: none;
