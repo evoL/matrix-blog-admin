@@ -59,7 +59,7 @@ The server will run at http://localhost:3000/.
 1. Make sure your `.env` file is populated with correct values.
 2. Run `npm run build`
 3. Copy the `package.json` file to the newly-created `build` directory.
-4. _This is a workaround for [SvelteKit issue #1428](https://github.com/sveltejs/kit/issues/1428)._ Edit the `build/package.json` file to move `@sveltejs/kit` and `svelte` from `devDependencies` to `dependencies`. _This is a workaround for [SvelteKit issue #1428](https://github.com/sveltejs/kit/issues/1428)._
+4. _This is a workaround for [SvelteKit issue #1428](https://github.com/sveltejs/kit/issues/1428)._ Edit the `build/package.json` file to move `@sveltejs/kit` and `svelte` from `devDependencies` to `dependencies`.
 5. Optional: Check that the app works by running `npm run preview`.
 
 You can now deploy the contents of the `build` directory as any other node.js app.
