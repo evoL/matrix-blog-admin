@@ -4,6 +4,8 @@ This is a [SvelteKit](https://kit.svelte.dev/) app that I use to edit posts on [
 
 > **Warning:** Please don't expose this app online! There's no authorization, so anyone could do things on the Matrix server on your behalf. Also, the code is very alpha quality. You probably don't want to use this in production.
 
+![Screenshot of matrix-blog-admin running on a desktop browser](./screenshot.jpg)
+
 ## Prerequisites
 
 In order to successfully use this to write blog posts, you need:
