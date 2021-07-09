@@ -1,13 +1,11 @@
-FROM node:14
+FROM node:14-alpine
 
-RUN git clone https://github.com/evoL/matrix-blog-admin
+WORKDIR /app
 
-WORKDIR matrix-blog-admin
-
-ADD .env .env
+ADD . ./
 
 RUN npm install
 
 EXPOSE 3000
 
-CMD [ "npm", "run", "dev" ]
+CMD [ "npm", "run", "dev"]
