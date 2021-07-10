@@ -78,7 +78,7 @@ At this point you have a `build/` directory that contains a plain node.js app. Y
 1. Make sure your `.env` file is populated with correct values.
 2. Run ```docker build -t matrix-blog-admin .```
 
-You can now start the container with ```docker run -p 3000:3000 matrix-blog-admin``` and access it at http://localhost:3000/.
+You can now start the container with ```docker run -p 3000:3000 matrix-blog-admin``` and access it at http://172.17.0.2:3000/ (or similar).
 
 ## License
 
