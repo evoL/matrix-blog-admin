@@ -34,8 +34,7 @@ In order to successfully use this to write blog posts, you need:
             "m.identity_server": { "base_url": "https://example.com" }
         }
     }
-  }
-  ```
+    ```
 
 ## Setting up for development
 
